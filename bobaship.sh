@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# Function to display the main menu
 function main_menu() {
     clear
-    echo "Docker Management TUI"
-    echo "----------------------"
-    ACTION=$(gum choose --height 10 \
+    gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Docker Management TUI"
+    echo
+    ACTION=$(gum choose --height 10 --header "Select an action:" \
         "List Containers" \
         "Start Container" \
         "Stop Container" \
@@ -27,82 +26,74 @@ function main_menu() {
     esac
 }
 
-# Function to list containers
 function list_containers() {
     clear
-    echo "Listing Docker Containers"
-    echo "-------------------------"
+    gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Listing Docker Containers"
+    echo
     docker ps -a
     gum input --placeholder "Press Enter to return to the main menu"
     main_menu
 }
 
-# Function to start a container
 function start_container() {
     clear
-    echo "Starting a Docker Container"
-    echo "---------------------------"
-    CONTAINER=$(docker ps -a --format "{{.Names}}" | gum choose --height 10 --header "Select container to start")
+    gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Starting a Docker Container"
+    echo
+    CONTAINER=$(docker ps -a --format "{{.Names}}" | gum choose --height 10 --header "Select container to start:")
     docker start $CONTAINER
-    echo "Container $CONTAINER started."
+    gum style --foreground 10 "Container $CONTAINER started."
     gum input --placeholder "Press Enter to return to the main menu"
     main_menu
 }
 
-# Function to stop a container
 function stop_container() {
     clear
-    echo "Stopping a Docker Container"
-    echo "---------------------------"
-    CONTAINER=$(docker ps --format "{{.Names}}" | gum choose --height 10 --header "Select container to stop")
+    gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Stopping a Docker Container"
+    echo
+    CONTAINER=$(docker ps --format "{{.Names}}" | gum choose --height 10 --header "Select container to stop:")
     docker stop $CONTAINER
-    echo "Container $CONTAINER stopped."
+    gum style --foreground 10 "Container $CONTAINER stopped."
     gum input --placeholder "Press Enter to return to the main menu"
     main_menu
 }
 
-# Function to install a container
 function install_container() {
     clear
-    echo "Installing a Docker Container"
-    echo "-----------------------------"
-    IMAGE=$(gum input --placeholder "Enter the Docker image name")
+    gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Installing a Docker Container"
+    echo
+    IMAGE=$(gum input --placeholder "Enter the Docker image name:")
     docker pull $IMAGE
-    echo "Docker image $IMAGE installed."
+    gum style --foreground 10 "Docker image $IMAGE installed."
     gum input --placeholder "Press Enter to return to the main menu"
     main_menu
 }
 
-# Function to open a shell in a container
 function open_shell() {
     clear
-    echo "Opening a Shell in a Docker Container"
-    echo "-------------------------------------"
-    CONTAINER=$(docker ps --format "{{.Names}}" | gum choose --height 10 --header "Select container to open a shell")
+    gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Opening a Shell in a Docker Container"
+    echo
+    CONTAINER=$(docker ps --format "{{.Names}}" | gum choose --height 10 --header "Select container to open a shell:")
     docker exec -it $CONTAINER /bin/sh
     main_menu
 }
 
-# Function to open a root shell in a container
 function open_root_shell() {
     clear
-    echo "Opening a Root Shell in a Docker Container"
-    echo "------------------------------------------"
-    CONTAINER=$(docker ps --format "{{.Names}}" | gum choose --height 10 --header "Select container to open a root shell")
+    gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Opening a Root Shell in a Docker Container"
+    echo
+    CONTAINER=$(docker ps --format "{{.Names}}" | gum choose --height 10 --header "Select container to open a root shell:")
     docker exec -it --user root $CONTAINER /bin/sh
     main_menu
 }
 
-# Function to view container logs
 function view_logs() {
     clear
-    echo "Viewing Docker Container Logs"
-    echo "-----------------------------"
-    CONTAINER=$(docker ps --format "{{.Names}}" | gum choose --height 10 --header "Select container to view logs")
+    gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Viewing Docker Container Logs"
+    echo
+    CONTAINER=$(docker ps --format "{{.Names}}" | gum choose --height 10 --header "Select container to view logs:")
     docker logs $CONTAINER
     gum input --placeholder "Press Enter to return to the main menu"
     main_menu
 }
 
-# Start the main menu
 main_menu
