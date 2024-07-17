@@ -2,7 +2,8 @@
 
 function main_menu() {
     clear
-    gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Bobaship" echo
+    gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Bobaship"
+    echo
     ACTION=$(gum choose --height 10 --header "Select an action:" \
         "List Containers" \
         "Start Container" \
