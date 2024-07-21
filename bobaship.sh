@@ -4,7 +4,7 @@ function main_menu() {
     clear
     gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Bobaship"
     echo
-    ACTION=$(gum choose --height 10 --header "Select an action:" \
+    ACTION=$(gum choose --height 10 --header "Select a function:" \
         "List Containers" \
         "Start Container" \
         "Stop Container" \
@@ -31,7 +31,7 @@ function list_containers() {
     gum style --foreground 212 --border-foreground 212 --border double --margin "1 2" --padding "2 4" "Listing Docker Containers"
     echo
     docker ps -a
-    gum input --placeholder "Press Enter to return to the main menu"
+    gum input --placeholder "Press Enter to finish"
     main_menu
 }
 
@@ -42,7 +42,7 @@ function start_container() {
     CONTAINER=$(docker ps -a --format "{{.Names}}" | gum choose --height 10 --header "Select container to start:")
     docker start $CONTAINER
     gum style --foreground 10 "Container $CONTAINER started."
-    gum input --placeholder "Press Enter to return to the main menu"
+    gum input --placeholder "Press Enter to finish"
     main_menu
 }
 
@@ -53,7 +53,7 @@ function stop_container() {
     CONTAINER=$(docker ps --format "{{.Names}}" | gum choose --height 10 --header "Select container to stop:")
     docker stop $CONTAINER
     gum style --foreground 10 "Container $CONTAINER stopped."
-    gum input --placeholder "Press Enter to return to the main menu"
+    gum input --placeholder "Press Enter to finish"
     main_menu
 }
 
@@ -64,7 +64,7 @@ function install_container() {
     IMAGE=$(gum input --placeholder "Enter the Docker image name:")
     docker pull $IMAGE
     gum style --foreground 10 "Docker image $IMAGE installed."
-    gum input --placeholder "Press Enter to return to the main menu"
+    gum input --placeholder "Press Enter to finish"
     main_menu
 }
 
